@@ -25,15 +25,15 @@ const store = new mongoStore({
 // app.use(express.static(path.join(__dirname, "Frontend", "dist")));
 const allowedOrigins = ['https://blog-cove-frontend.vercel.app', "http://localhost:5173"];
 app.use(cors({
-    origin: allowedOrigins,
+    origin: 'https://blog-cove-frontend.vercel.app',
     credentials: true, // Allow credentials to be sent
 }));
 app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET_KEY,
     store,
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
         maxAge: 60 * 60 * 1000,  // Session will expire after 1 hour from login if not re-sent
         secure: true,
