@@ -1,0 +1,51 @@
+Authentication -
+- Register (Name, Username, Email, Password) ✔️
+- Login ✔️
+- Logout ✔️
+- Session based Auth ✔️
+
+Create Blog -
+- Text only (initially) ✔️
+- Schema {title, body, creationDateTime, userID(_id)} ✔️
+- Limit of 1000 characters ✔️
+
+Home Page -
+- Blogs of all users (Followings' blogs first and then the rest of the people's blogs) ✔️
+- Descending order of creation time (Recent at top) ✔️
+- Pagination ✔️
+
+MyBlogs Page -
+- User's blogs ✔️
+- Descending order of creation time (Recent at top) ✔️
+- Pagination ✔️
+
+Edit Blog -
+- Within 30 mins of creation ✔️
+
+Delete Blog -
+- Allow users to delete their blog ✔️
+
+Schemas -
+- User ✔️
+- Blog ✔️
+- Follow ✔️
+- Session ✔️
+- Access (Rate limiting) ✔️
+
+FOLLOW UPS:
+- Follow: Allow users to follow others (Create a new Follow schema with 2 fields: followerID, followingID) ✔️
+- Following list: Paginated, Descending order of time (2 METHODS: We need to use 'populate' (from Mongoose; not MongoDB) to get user details of each member of the list OR We use a special MongoDB Operator) ✔️
+- Follower list: Paginated, Descending order of time ✔️
+- Unfollow ✔️
+- Rate limiting ✔️
+- Bin Cron: Deleted blog should vanish from user view but stay in DB for 30 days (Schedulers) [Can add restoring function] ✔️
+- Count APIs for user's followings, user's followers, user's blogs, user's following's + other's blogs ✔️
+
+Adv. Features:
+- Change Username, Email & Password
+- Implement JWT for registration
+- Images in blog
+- Comments & Nested comments
+- Reactions (Like, laugh, etc)
+- Hashtags (max 20 per blog)
+- Trending (top 10): Blogs on a specific hashtag being used most in last 3 hrs
