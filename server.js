@@ -23,7 +23,7 @@ const store = new mongoStore({
 
 // Middlewares
 // app.use(express.static(path.join(__dirname, "Frontend", "dist")));
-const allowedOrigins = ['https://blog-cove-frontend.vercel.app'];
+const allowedOrigins = ['https://blog-cove-frontend.vercel.app', "http://localhost:5173"];
 app.use(cors({
     origin: allowedOrigins,
     credentials: true, // Allow credentials to be sent
@@ -32,12 +32,12 @@ app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET_KEY,
     store,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
         maxAge: 60 * 60 * 1000,  // Session will expire after 1 hour from login if not re-sent
-        secure: true,
-        sameSite: 'lax'
+        secure: false,
+        sameSite: "none"
     }
 }));
 
