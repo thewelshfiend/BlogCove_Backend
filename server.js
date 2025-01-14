@@ -22,13 +22,7 @@ const store = new mongoStore({
 });
 
 // Middlewares
-app.use(express.static(path.join(__dirname, 'dist')));
-
-// Handle all other requests to return the React app's `index.html`
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-const allowedOrigins = [process.env.REACT_URL, 'http://localhost:5173'];
+const allowedOrigins = [process.env.REACT_URL, 'http://localhost:5173', 'http://localhost:8080'];
 app.use(cors({
     origin: allowedOrigins,
     credentials: true // Allow credentials to be sent
@@ -43,11 +37,10 @@ app.use(session({
         maxAge: 60 * 60 * 1000,  // Session will expire after 1 hour from login if not re-sent
         // secure: true,
         // sameSite: "none"
-        secure: true,
+        secure: secure,
         sameSite: "none"
     }
 }));
-
 // APIs
 app.get("/api/", (req, res) => {
     res.send({
@@ -62,6 +55,19 @@ app.get('/api/debug', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/blog', isAuth, blogRouter);  // using isAuth here protects all requests coming via this router
 app.use('/api/follow', isAuth, followRouter);
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Catch-all for React (exclude API routes)
+app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api/')) {
+        return next(); // Skip this for API routes
+    }
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+
 
 app.listen(PORT, () => {
     console.log(clc.blueBright(`Server is running at: PORT${PORT}`));
