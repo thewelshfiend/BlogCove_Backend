@@ -51,6 +51,6 @@ app.use('/blog', isAuth, blogRouter);  // using isAuth here protects all request
 app.use('/follow', isAuth, followRouter);
 
 app.listen(PORT, () => {
-    console.log(clc.blueBright(`Server is running at: ${PORT}`));
+    console.log(clc.blueBright(`Server is running at: PORT${PORT}`));
     cleanUpTrash();  // Calling it here is preferred
 });
