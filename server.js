@@ -44,7 +44,7 @@ app.use(session({
         // secure: true,
         // sameSite: "none"
         secure: true,
-        sameSite: "lax"
+        sameSite: "none"
     }
 }));
 
