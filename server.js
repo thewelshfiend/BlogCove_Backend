@@ -29,9 +29,7 @@ app.use(cors({
 // Handle preflight requests REMOVE IF NOT NEEDED
 app.options('*', cors({
     origin: allowedOrigins,
-    credentials: true,
-    methods: 'GET,POST,PUT,DELETE,OPTIONS',
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+    credentials: true
 }));
 app.use(express.json());
 app.use(session({
