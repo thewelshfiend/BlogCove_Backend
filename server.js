@@ -40,7 +40,6 @@ app.use(session({
     cookie: {
         maxAge: 60 * 60 * 1000,  // Session will expire after 1 hour from login if not re-sent
         secure: false,
-        httpOnly: true,
         sameSite: "none"
     }
 }));
