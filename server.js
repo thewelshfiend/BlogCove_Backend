@@ -1,7 +1,6 @@
 const express = require("express");
 const clc = require("cli-color");
 const cors = require("cors");
-const path = require("path");
 const session = require("express-session");
 const mongoStore = require("connect-mongodb-session")(session);
 
@@ -22,11 +21,10 @@ const store = new mongoStore({
 });
 
 // Middlewares
-// app.use(express.static(path.join(__dirname, "Frontend", "dist")));
-const allowedOrigins = ['https://blog-cove-frontend.vercel.app', "http://localhost:5173"];
+const allowedOrigins = [process.env.REACT_URL, 'http://localhost:5173'];
 app.use(cors({
-    origin: 'https://blog-cove-frontend.vercel.app',
-    credentials: true, // Allow credentials to be sent
+    origin: allowedOrigins,
+    credentials: true // Allow credentials to be sent
 }));
 app.use(express.json());
 app.use(session({
@@ -36,8 +34,8 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 60 * 60 * 1000,  // Session will expire after 1 hour from login if not re-sent
-        secure: true,
-        sameSite: "none"
+        secure: false,
+        sameSite: "lax"
     }
 }));
 
