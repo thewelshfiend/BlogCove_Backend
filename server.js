@@ -21,6 +21,7 @@ const store = new mongoStore({
 });
 
 // Middlewares
+const allowedOrigins = [process.env.REACT_URL, 'http://localhost:5173'];
 // Handle preflight requests REMOVE IF NOT NEEDED
 app.options('*', cors({
     origin: allowedOrigins,
