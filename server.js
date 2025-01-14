@@ -51,6 +51,10 @@ app.get("/", (req, res) => {
         message: "Server is running"
     });
 })
+app.get('/debug', (req, res) => {
+    console.log("Cookies: ", req.cookies);
+    res.json(req.cookies);
+});
 app.use('/auth', authRouter);
 app.use('/blog', isAuth, blogRouter);  // using isAuth here protects all requests coming via this router
 app.use('/follow', isAuth, followRouter);
