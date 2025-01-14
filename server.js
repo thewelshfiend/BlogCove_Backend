@@ -26,6 +26,11 @@ app.use(cors({
     origin: allowedOrigins,
     credentials: true // Allow credentials to be sent
 }));
+// Handle preflight requests
+app.options('*', cors({
+    origin: allowedOrigins,
+    credentials: true
+}));
 app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET_KEY,
@@ -35,7 +40,7 @@ app.use(session({
     cookie: {
         maxAge: 60 * 60 * 1000,  // Session will expire after 1 hour from login if not re-sent
         secure: false,
-        sameSite: "strict"
+        sameSite: "none"
     }
 }));
 
