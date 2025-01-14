@@ -24,7 +24,9 @@ const store = new mongoStore({
 const allowedOrigins = [process.env.REACT_URL, 'http://localhost:5173'];
 app.use(cors({
     origin: allowedOrigins,
-    credentials: true // Allow credentials to be sent
+    credentials: true, // Allow credentials to be sent
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 // Handle preflight requests REMOVE IF NOT NEEDED
 app.options('*', cors({
