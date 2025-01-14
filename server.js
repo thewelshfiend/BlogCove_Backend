@@ -43,25 +43,25 @@ app.use(session({
         maxAge: 60 * 60 * 1000,  // Session will expire after 1 hour from login if not re-sent
         // secure: true,
         // sameSite: "none"
-        secure: false,
+        secure: true,
         sameSite: "lax"
     }
 }));
 
 // APIs
-app.get("/", (req, res) => {
+app.get("/api/", (req, res) => {
     res.send({
         status: 200,
         message: "Server is running"
     });
 })
-app.get('/debug', (req, res) => {
+app.get('/api/debug', (req, res) => {
     console.log("Cookies: ", req.cookies);
     res.json(req.cookies);
 });
-app.use('/auth', authRouter);
-app.use('/blog', isAuth, blogRouter);  // using isAuth here protects all requests coming via this router
-app.use('/follow', isAuth, followRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/blog', isAuth, blogRouter);  // using isAuth here protects all requests coming via this router
+app.use('/api/follow', isAuth, followRouter);
 
 app.listen(PORT, () => {
     console.log(clc.blueBright(`Server is running at: PORT${PORT}`));
