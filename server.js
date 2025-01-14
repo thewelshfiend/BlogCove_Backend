@@ -1,6 +1,7 @@
 const express = require("express");
 const clc = require("cli-color");
 const cors = require("cors");
+const path = require('path');
 const session = require("express-session");
 const mongoStore = require("connect-mongodb-session")(session);
 
@@ -21,15 +22,16 @@ const store = new mongoStore({
 });
 
 // Middlewares
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Handle all other requests to return the React app's `index.html`
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 const allowedOrigins = [process.env.REACT_URL, 'http://localhost:5173'];
 app.use(cors({
     origin: allowedOrigins,
     credentials: true // Allow credentials to be sent
-}));
-// Handle preflight requests REMOVE IF NOT NEEDED
-app.options('*', cors({
-    origin: allowedOrigins,
-    credentials: true
 }));
 app.use(express.json());
 app.use(session({
@@ -39,9 +41,10 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 60 * 60 * 1000,  // Session will expire after 1 hour from login if not re-sent
-        secure: true,
-        // httpOnly: true,
-        sameSite: "none"
+        // secure: true,
+        // sameSite: "none"
+        secure: false,
+        sameSite: "lax"
     }
 }));
 
