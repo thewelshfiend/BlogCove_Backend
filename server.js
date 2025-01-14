@@ -21,6 +21,9 @@ const store = new mongoStore({
 });
 
 // Middlewares
+const expressSSLify = require('express-sslify');
+app.use(expressSSLify.HTTPS({ trustProtoHeader: true }));
+
 const allowedOrigins = [process.env.REACT_URL, 'http://localhost:5173'];
 app.use(cors({
     origin: allowedOrigins,
