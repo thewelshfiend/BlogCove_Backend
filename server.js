@@ -15,7 +15,7 @@ const followRouter = require("./routers/followRouter");
 
 // Constants
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 const store = new mongoStore({
     uri: process.env.MONGO_URI,
     collection: "sessions"

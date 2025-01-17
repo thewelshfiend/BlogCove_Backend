@@ -44,7 +44,6 @@ async function getFollowingsController(req, res) {
 
     try {
         const followingList = await getFollowingList({ userId, SKIP });
-        console.log(followingList);
         if (followingList.length == 0) {
             return res.send({
                 status: 204,
@@ -100,7 +99,6 @@ async function getFollowersController(req, res) {
 
     try {
         const followerList = await getFollowerList({ userId, SKIP });
-        console.log(followerList);
         if (followerList.length == 0) {
             return res.send({
                 status: 204,
