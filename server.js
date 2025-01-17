@@ -35,10 +35,10 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 60 * 60 * 1000,  // Session will expire after 1 hour from login if not re-sent
-        // secure: true,
-        // sameSite: "none"
-        secure: false,
-        sameSite: "lax"
+        secure: true,
+        sameSite: "none"
+        // secure: false,
+        // sameSite: "lax"
     }
 }));
 // APIs
