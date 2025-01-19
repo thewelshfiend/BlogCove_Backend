@@ -47,9 +47,26 @@ async function loginController(req, res) {
         });
     }
 
+    let userDB;
     try {
-        const userDB = await User.findUser({ key: loginId });
+        userDB = await User.findUser({ key: loginId });
+    }
+    catch (error) {
+        console.log(error);
+        if (error == "User not found") {
+            return res.send({
+                status: 400,
+                message: "User not found"
+            });
+        }
+        return res.send({
+            status: 500,
+            message: "Internal server error",
+            error
+        });
+    }
 
+    try {
         const isMatch = await bcrypt.compare(password, userDB.password);
         if (!isMatch) {
             return res.send({
